@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HipnoMarketing Pro - Automação para Hipnose Clínica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #7c3aed;
+            --secondary-color: #2563eb;
+            --accent-color: #f3f4f6;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-bg { 
+            background: var(--gradient, linear-gradient(135deg, #667eea 0%, #764ba2 100%)); 
+        }
+        
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        
+        /* Login Animation */
+        .login-container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .login-input:focus {
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Login Screen -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 to-blue-600">
+        <div class="login-container bg-white rounded-xl shadow-2xl p-8 w-full max-w-md mx-4">
+            <div class="text-center mb-8">
+                <div class="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <span class="text-white font-bold text-3xl">🧠</span>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">HipnoMarketing Pro</h1>
+                <p class="text-gray-600">Sistema Completo de Automação</p>
+                <p class="text-sm text-purple-600 font-medium">Hipnose Clínica & Marketing Digital</p>
+            </div>
+            
+            <form onsubmit="handleLogin(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">👤 Usuário</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        required
+                        class="login-input w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                        placeholder="Digite seu usuário"
+                        autocomplete="username"
+                    >
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">🔒 Senha</label>
+                    <div class="relative">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            required
+                            class="login-input w-full p-4 pr-12 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+                            placeholder="Digite sua senha"
+                            autocomplete="current-password"
+                        >
+                        <button 
+                            type="button" 
+                            onclick="togglePasswordVisibility()" 
+                            class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none transition-colors"
+                            id="togglePasswordBtn"
+                        >
+                            <span id="eyeIcon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center space-x-2 cursor-pointer">
+                        <input 
+                            type="checkbox" 
+                            id="rememberPassword" 
+                            class="rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                        >
+                        <span class="text-sm text-gray-600">Lembrar acesso</span>
+                    </label>
+                    <button 
+                        type="button" 
+                        onclick="showForgotPassword()" 
+                        class="text-sm text-purple-600 hover:text-purple-700 transition-colors font-medium"
+                    >
+                        Esqueci minha senha
+                    </button>
+                </div>
+                
+                <div id="loginError" class="hidden bg-red-50 border-2 border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+                    ❌ Usuário ou senha incorretos. Verifique suas credenciais e tente novamente.
+                </div>
+                
+                <button 
+                    type="submit" 
+                    class="login-btn w-full text-white py-4 px-6 rounded-xl font-semibold text-lg shadow-lg"
+                >
+                    🚀 Entrar no Sistema
+                </button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-xs text-gray-500 mb-4">
+                    🔐 Sistema protegido • Acesso autorizado apenas
+                </p>
+            </div>
+            
+            <!-- Demo credentials info -->
+            <div class="mt-4 p-4 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-xl">
+                <p class="text-sm font-semibold text-blue-800 text-center mb-3">
+                    🎯 Credenciais de Demonstração
+                </p>
+                <div class="space-y-2 text-xs">
+                    <div class="bg-white p-2 rounded-lg border border-blue-200">
+                        <span class="font-medium text-blue-700">Profissional:</span> 
+                        <code class="bg-blue-100 px-2 py-1 rounded text-blue-800">Laila</code> | 
+                        <code class="bg-blue-100 px-2 py-1 rounded text-blue-800">Laila@@@060576</code>
+                    </div>
+                    <div class="bg-white p-2 rounded-lg border border-purple-200">
+                        <span class="font-medium text-purple-700">Admin:</span> 
+                        <code class="bg-purple-100 px-2 py-1 rounded text-purple-800">admin</code> | 
+                        <code class="bg-purple-100 px-2 py-1 rounded text-purple-800">admin</code>
+                    </div>
+                    <div class="bg-white p-2 rounded-lg border border-green-200">
+                        <span class="font-medium text-green-700">Demo:</span> 
+                        <code class="bg-green-100 px-2 py-1 rounded text-green-800">demo</code> | 
+                        <code class="bg-green-100 px-2 py-1 rounded text-green-800">demo123</code>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Login Buttons -->
+            <div class="mt-4 space-y-2">
+                <p class="text-xs text-gray-600 text-center font-medium">⚡ Acesso Rápido:</p>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="quickLogin('Laila', 'Laila@@@060576')" class="bg-blue-100 text-blue-700 py-2 px-3 rounded-lg text-xs font-medium hover:bg-blue-200 transition-colors">
+                        👩‍⚕️ Laila
+                    </button>
+                    <button onclick="quickLogin('admin', 'admin')" class="bg-purple-100 text-purple-700 py-2 px-3 rounded-lg text-xs font-medium hover:bg-purple-200 transition-colors">
+                        👨‍💼 Admin
+                    </button>
+                    <button onclick="quickLogin('demo', 'demo123')" class="bg-green-100 text-green-700 py-2 px-3 rounded-lg text-xs font-medium hover:bg-green-200 transition-colors">
+                        🎯 Demo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Reset Button on Login Screen -->
+            <div class="mt-4 pt-4 border-t border-gray-200">
+                <button onclick="resetAllFromLogin()" class="w-full bg-red-100 text-red-700 py-2 px-4 rounded-lg hover:bg-red-200 transition-colors text-sm font-medium">
+                    🔄 Zerar Todas as Simulações
+                </button>
+                <p class="text-xs text-gray-500 text-center mt-2">
+                    Remove todos os dados de teste e volta ao estado inicial
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application (hidden initially) -->
+    <div id="mainApp" class="hidden">
+        <!-- Header -->
+        <header class="gradient-bg text-white shadow-lg">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                            <span class="text-purple-600 font-bold text-xl">🧠</span>
+                        </div>
+                        <h1 class="text-2xl font-bold">HipnoMarketing Pro</h1>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm opacity-90" id="currentUser">Usuário</span>
+                        <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                            <span class="text-purple-600 text-sm">👤</span>
+                        </div>
+                        <button onclick="logout()" class="text-sm opacity-90 hover:opacity-100 transition-opacity bg-white bg-opacity-20 px-3 py-1 rounded-lg">
+                            🚪 Sair
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="bg-white shadow-sm border-b">
+            <div class="container mx-auto px-6">
+                <div class="flex space-x-8 overflow-x-auto">
+                    <button onclick="showTab('dashboard')" class="nav-btn py-4 px-2 border-b-2 border-purple-500 text-purple-600 font-medium whitespace-nowrap">📊 Dashboard</button>
+                    <button onclick="showTab('content')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">🎨 Conteúdo</button>
+                    <button onclick="showTab('automation')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">🤖 Automação</button>
+                    <button onclick="showTab('analytics')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">📈 Relatórios</button>
+                    <button onclick="showTab('clients')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">👥 Clientes</button>
+                    <button onclick="showTab('contacts')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">📱 Contatos</button>
+                    <button onclick="showTab('agenda')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">📅 Agenda</button>
+                    <button onclick="showTab('social')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">📲 Redes Sociais</button>
+                    <button onclick="showTab('settings')" class="nav-btn py-4 px-2 border-b-2 border-transparent text-gray-500 hover:text-purple-600 whitespace-nowrap">⚙️ Configurações</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container mx-auto px-6 py-8">
+            <!-- Dashboard Tab -->
+            <div id="dashboard" class="tab-content">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">🎯 Painel de Controle</h2>
+                    <p class="text-gray-600">Visão geral do seu negócio de hipnose clínica</p>
+                </div>
+                
+                <!-- Reset Panel on Dashboard -->
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-lg shadow-md p-6 mb-8">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-red-800 mb-2">🔄 Sistema de Reset</h3>
+                            <p class="text-red-600 text-sm">Zere todas as simulações e dados de teste</p>
+                        </div>
+                        <button onclick="resetAllData()" class="bg-red-500 text-white px-6 py-3 rounded-lg hover:bg-red-600 transition-colors font-medium">
+                            🔄 Zerar Tudo
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Posts Agendados</p>
+                                <p class="text-3xl font-bold text-purple-600" id="postsCount">24</p>
+                                <p class="text-xs text-green-600">+12% esta semana</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+                                <span class="text-purple-600 text-xl">📅</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Engajamento</p>
+                                <p class="text-3xl font-bold text-green-600">+32%</p>
+                                <p class="text-xs text-green-600">Crescimento mensal</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                                <span class="text-green-600 text-xl">📈</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Novos Leads</p>
+                                <p class="text-3xl font-bold text-blue-600" id="leadsCount">18</p>
+                                <p class="text-xs text-blue-600">Últimos 7 dias</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 text-xl">👥</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6 card-hover">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Consultas Hoje</p>
+                                <p class="text-3xl font-bold text-orange-600" id="consultasCount">5</p>
+                                <p class="text-xs text-orange-600">3 confirmadas</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+                                <span class="text-orange-600 text-xl">🗓️</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Welcome Message -->
+                <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl shadow-lg p-6 mb-8 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold mb-2">🎉 Bem-vindo ao HipnoMarketing Pro!</h3>
+                            <p class="text-purple-100 mb-4">Sistema completo de automação para profissionais de hipnose clínica</p>
+                            <div class="flex space-x-4">
+                                <button onclick="showTab('contacts')" class="bg-white text-purple-600 px-4 py-2 rounded-lg hover:bg-gray-100 transition-colors font-medium">
+                                    📱 Ver Contatos
+                                </button>
+                                <button onclick="showTab('content')" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-400 transition-colors font-medium">
+                                    🎨 Criar Conteúdo
+                                </button>
+                            </div>
+                        </div>
+                        <div class="text-6xl opacity-20">🧠</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab with Reset Options -->
+            <div id="settings" class="tab-content hidden">
+                <!-- Settings Header -->
+                <div class="bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg shadow-lg p-6 mb-8 text-white">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-2xl font-bold mb-2">⚙️ Configurações e Reset</h2>
+                            <p class="text-purple-100">Configure o sistema e gerencie dados de simulação</p>
+                        </div>
+                        <div class="text-6xl opacity-20">🔧</div>
+                    </div>
+                </div>
+
+                <!-- Reset System -->
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-lg shadow-md p-6 mb-8">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center text-red-800">
+                        <span class="mr-2">🔄</span> Sistema de Reset e Limpeza
+                    </h3>
+                    
+                    <div class="bg-white rounded-lg p-4 mb-4">
+                        <h4 class="font-medium mb-3 text-gray-800">🎯 Reset Seletivo</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <button onclick="resetContacts()" class="bg-blue-100 text-blue-700 py-2 px-3 rounded-lg hover:bg-blue-200 transition-colors text-sm font-medium">
+                                📱 Zerar Contatos
+                            </button>
+                            <button onclick="resetClients()" class="bg-green-100 text-green-700 py-2 px-3 rounded-lg hover:bg-green-200 transition-colors text-sm font-medium">
+                                👥 Zerar Clientes
+                            </button>
+                            <button onclick="resetSchedule()" class="bg-purple-100 text-purple-700 py-2 px-3 rounded-lg hover:bg-purple-200 transition-colors text-sm font-medium">
+                                📅 Zerar Agenda
+                            </button>
+                            <button onclick="resetPosts()" class="bg-pink-100 text-pink-700 py-2 px-3 rounded-lg hover:bg-pink-200 transition-colors text-sm font-medium">
+                                📝 Zerar Posts
+                            </button>
+                            <button onclick="resetAutomations()" class="bg-yellow-100 text-yellow-700 py-2 px-3 rounded-lg hover:bg-yellow-200 transition-colors text-sm font-medium">
+                                🤖 Zerar Automações
+                            </button>
+                            <button onclick="resetAnalytics()" class="bg-indigo-100 text-indigo-700 py-2 px-3 rounded-lg hover:bg-indigo-200 transition-colors text-sm font-medium">
+                                📊 Zerar Relatórios
+                            </button>
+                            <button onclick="resetSounds()" class="bg-teal-100 text-teal-700 py-2 px-3 rounded-lg hover:bg-teal-200 transition-colors text-sm font-medium">
+                                🔊 Zerar Sons
+                            </button>
+                            <button onclick="resetVisualSettings()" class="bg-gray-100 text-gray-700 py-2 px-3 rounded-lg hover:bg-gray-200 transition-colors text-sm font-medium">
+                                🎨 Reset Visual
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg p-4 mb-4">
+                        <h4 class="font-medium mb-3 text-gray-800">⚠️ Reset Completo</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            <button onclick="resetAllData()" class="bg-orange-500 text-white py-3 px-4 rounded-lg hover:bg-orange-600 transition-colors font-medium">
+                                🔄 Zerar Todos os Dados
+                            </button>
+                            <button onclick="resetToFactory()" class="bg-red-500 text-white py-3 px-4 rounded-lg hover:bg-red-600 transition-colors font-medium">
+                                🏭 Reset de Fábrica
+                            </button>
+                            <button onclick="resetAndReload()" class="bg-purple-500 text-white py-3 px-4 rounded-lg hover:bg-purple-600 transition-colors font-medium">
+                                🔄 Reset + Recarregar
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-yellow-600 text-xl">⚠️</span>
+                            <div>
+                                <h5 class="font-medium text-yellow-800 mb-1">Importante:</h5>
+                                <p class="text-yellow-700 text-sm">
+                                    • Os resets são permanentes e não podem ser desfeitos<br>
+                                    • Dados resetados voltam ao estado inicial de demonstração<br>
+                                    • Configurações visuais podem ser restauradas individualmente
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4 flex items-center">
+                        <span class="mr-2">⚡</span> Ações Rápidas
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                        <button onclick="exportAllData()" class="bg-cyan-100 text-cyan-700 py-3 px-4 rounded-lg hover:bg-cyan-200 transition-colors text-sm font-medium">
+                            💾 Backup Completo
+                        </button>
+                        <button onclick="importDemoData()" class="bg-emerald-100 text-emerald-700 py-3 px-4 rounded-lg hover:bg-emerald-200 transition-colors text-sm font-medium">
+                            📥 Dados de Demo
+                        </button>
+                        <button onclick="testNotifications()" class="bg-blue-100 text-blue-700 py-3 px-4 rounded-lg hover:bg-blue-200 transition-colors text-sm font-medium">
+                            🧪 Testar Notificações
+                        </button>
+                        <button onclick="generateReport()" class="bg-green-100 text-green-700 py-3 px-4 rounded-lg hover:bg-green-200 transition-colors text-sm font-medium">
+                            📊 Gerar Relatório
+                        </button>
+                        <button onclick="contactSupport()" class="bg-purple-100 text-purple-700 py-3 px-4 rounded-lg hover:bg-purple-200 transition-colors text-sm font-medium">
+                            💬 Suporte Técnico
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other tabs remain the same but simplified for space -->
+            <div id="contacts" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">📱 Integração com Contatos</h2>
+                    <p class="text-gray-600">Gerencie e sincronize seus contatos do celular</p>
+                </div>
+                
+                <div id="contactsList" class="bg-white rounded-lg shadow-md p-6">
+                    <div class="text-center py-8 text-gray-500">
+                        <div class="text-4xl mb-4">📱</div>
+                        <p>Clique em "Sincronizar Contatos" para importar seus contatos</p>
+                        <button onclick="syncContacts()" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            🔄 Sincronizar Contatos
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">🎨 Criação de Conteúdo</h2>
+                    <p class="text-gray-600">Crie conteúdo profissional para suas redes sociais</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">✍️ Criador de Posts</h3>
+                    <textarea id="postContent" rows="6" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Digite o conteúdo do seu post..."></textarea>
+                    <div class="mt-4 flex space-x-3">
+                        <button onclick="generateContent()" class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            🤖 Gerar com IA
+                        </button>
+                        <button onclick="schedulePost()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            📅 Agendar Post
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="automation" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">🤖 Automação Inteligente</h2>
+                    <p class="text-gray-600">Configure fluxos automatizados para otimizar seu atendimento</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">⚡ Automações Ativas</h3>
+                    <div class="space-y-4" id="automationsList">
+                        <div class="p-4 border border-gray-200 rounded-lg">
+                            <h4 class="font-medium">📞 Lembrete de Consulta</h4>
+                            <p class="text-sm text-gray-600">WhatsApp automático 24h antes da sessão</p>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Ativo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analytics" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">📈 Relatórios e Análises</h2>
+                    <p class="text-gray-600">Acompanhe o desempenho do seu consultório</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <p class="text-gray-500 text-sm">Receita Mensal</p>
+                        <p class="text-3xl font-bold text-green-600">R$ 12.450</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <p class="text-gray-500 text-sm">Novos Clientes</p>
+                        <p class="text-3xl font-bold text-blue-600">23</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <p class="text-gray-500 text-sm">Taxa de Retenção</p>
+                        <p class="text-3xl font-bold text-purple-600">89%</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <p class="text-gray-500 text-sm">Sessões Realizadas</p>
+                        <p class="text-3xl font-bold text-orange-600">156</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="clients" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">👥 Gestão de Clientes</h2>
+                    <p class="text-gray-600">Gerencie seus clientes e histórico de sessões</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6" id="clientsList">
+                    <div class="text-center py-8 text-gray-500">
+                        <div class="text-4xl mb-4">👥</div>
+                        <p>Nenhum cliente cadastrado</p>
+                        <button onclick="addNewClient()" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            ➕ Novo Cliente
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="agenda" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">📅 Agenda Profissional</h2>
+                    <p class="text-gray-600">Gerencie seus horários e consultas</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">📋 Consultas de Hoje</h3>
+                    <div id="todaySchedule">
+                        <div class="text-center py-8 text-gray-500">
+                            <div class="text-4xl mb-4">📅</div>
+                            <p>Nenhuma consulta agendada para hoje</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="social" class="tab-content hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">📲 Gestão de Redes Sociais</h2>
+                    <p class="text-gray-600">Gerencie todas suas redes sociais em um só lugar</p>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-lg font-semibold mb-4">🔗 Contas Conectadas</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 border border-gray-200 rounded-lg">
+                            <h4 class="font-medium">📸 Instagram Business</h4>
+                            <p class="text-sm text-gray-600">@lailahipnose • 2.847 seguidores</p>
+                            <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Conectado</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentUser = '';
+        let contacts = [];
+        let clients = [];
+        let posts = [];
+        let automations = [];
+
+        // Reset Functions - Sistema completo de limpeza
+        function resetAllFromLogin() {
+            if (confirm('🔄 Tem certeza que deseja zerar TODAS as simulações?\n\nEsta ação irá:\n• Remover todos os dados de teste\n• Restaurar configurações padrão\n• Voltar ao estado inicial\n\nEsta ação não pode ser desfeita.')) {
+                // Clear all localStorage
+                localStorage.clear();
+                
+                // Reset all variables
+                contacts = [];
+                clients = [];
+                posts = [];
+                automations = [];
+                currentUser = '';
+                
+                showToast('🔄 Todas as simulações foram zeradas!', 'success');
+                
+                setTimeout(() => {
+                    showToast('✅ Sistema restaurado ao estado inicial!', 'info');
+                }, 2000);
+            }
+        }
+
+        function resetContacts() {
+            if (confirm('🔄 Tem certeza que deseja zerar todos os contatos?\n\nEsta ação não pode ser desfeita.')) {
+                contacts = [];
+                updateContactDisplay();
+                localStorage.removeItem('contacts');
+                showToast('📱 Contatos zerados com sucesso!', 'success');
+            }
+        }
+
+        function resetClients() {
+            if (confirm('🔄 Tem certeza que deseja zerar todos os dados de clientes?\n\nEsta ação não pode ser desfeita.')) {
+                clients = [];
+                updateClientsDisplay();
+                localStorage.removeItem('clients');
+                showToast('👥 Dados de clientes zerados com sucesso!', 'success');
+            }
+        }
+
+        function resetSchedule() {
+            if (confirm('🔄 Tem certeza que deseja zerar toda a agenda?\n\nTodas as consultas agendadas serão removidas.')) {
+                updateScheduleDisplay();
+                localStorage.removeItem('schedule');
+                showToast('📅 Agenda zerada com sucesso!', 'success');
+            }
+        }
+
+        function resetPosts() {
+            if (confirm('🔄 Tem certeza que deseja zerar todos os posts?\n\nTodos os posts agendados e publicados serão removidos.')) {
+                posts = [];
+                updatePostsDisplay();
+                document.getElementById('postContent').value = '';
+                localStorage.removeItem('posts');
+                showToast('📝 Posts zerados com sucesso!', 'success');
+            }
+        }
+
+        function resetAutomations() {
+            if (confirm('🔄 Tem certeza que deseja zerar todas as automações?\n\nTodas as automações ativas serão desabilitadas.')) {
+                automations = [];
+                updateAutomationsDisplay();
+                localStorage.removeItem('automations');
+                showToast('🤖 Automações zeradas com sucesso!', 'success');
+            }
+        }
+
+        function resetAnalytics() {
+            if (confirm('🔄 Tem certeza que deseja zerar todos os relatórios?\n\nTodas as estatísticas e dados analíticos serão resetados.')) {
+                localStorage.removeItem('analytics');
+                localStorage.removeItem('statistics');
+                localStorage.removeItem('reports');
+                showToast('📊 Relatórios zerados com sucesso!', 'success');
+            }
+        }
+
+        function resetSounds() {
+            if (confirm('🔄 Tem certeza que deseja zerar todas as configurações de som?\n\nTodos os sons personalizados serão removidos.')) {
+                localStorage.removeItem('sessionSounds');
+                showToast('🔊 Configurações de som zeradas com sucesso!', 'success');
+            }
+        }
+
+        function resetVisualSettings() {
+            if (confirm('🔄 Tem certeza que deseja restaurar as configurações visuais?\n\nTodas as personalizações de tema, cores e layout serão perdidas.')) {
+                // Reset to default theme
+                document.documentElement.style.setProperty('--primary-color', '#7c3aed');
+                document.documentElement.style.setProperty('--secondary-color', '#2563eb');
+                document.documentElement.style.setProperty('--gradient', 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)');
+                
+                document.body.style.background = '#f3f4f6';
+                document.body.style.fontFamily = "'Inter', sans-serif";
+                document.body.style.fontSize = '16px';
+                document.body.classList.remove('compact-mode', 'no-animations');
+                
+                localStorage.removeItem('visualSettings');
+                showToast('🎨 Configurações visuais restauradas!', 'success');
+            }
+        }
+
+        function resetAllData() {
+            if (confirm('⚠️ ATENÇÃO: Esta ação irá zerar TODOS os dados do sistema!\n\n• Contatos\n• Clientes\n• Agenda\n• Posts\n• Automações\n• Relatórios\n• Configurações\n\nTem certeza que deseja continuar?')) {
+                if (confirm('🚨 ÚLTIMA CONFIRMAÇÃO!\n\nEsta ação é IRREVERSÍVEL e apagará tudo.\n\nClique OK para prosseguir.')) {
+                    // Reset all data
+                    contacts = [];
+                    clients = [];
+                    posts = [];
+                    automations = [];
+                    
+                    // Clear localStorage except login info
+                    const keysToKeep = ['rememberedUser'];
+                    const allKeys = Object.keys(localStorage);
+                    allKeys.forEach(key => {
+                        if (!keysToKeep.includes(key)) {
+                            localStorage.removeItem(key);
+                        }
+                    });
+                    
+                    // Update all displays
+                    updateAllDisplays();
+                    
+                    showToast('🔄 TODOS os dados foram zerados com sucesso!', 'success');
+                    
+                    setTimeout(() => {
+                        showToast('✅ Sistema resetado para estado inicial!', 'info');
+                    }, 2000);
+                }
+            }
+        }
+
+        function resetToFactory() {
+            if (confirm('🏭 RESET DE FÁBRICA!\n\nEsta ação irá:\n• Zerar TODOS os dados\n• Restaurar configurações visuais\n• Remover todas as personalizações\n• Voltar ao estado original\n\nTem certeza?')) {
+                if (confirm('🚨 CONFIRMAÇÃO FINAL!\n\nO sistema será completamente resetado.\nTodos os dados serão perdidos permanentemente.\n\nProsseguir?')) {
+                    // Clear ALL localStorage
+                    localStorage.clear();
+                    
+                    // Reset all variables
+                    contacts = [];
+                    clients = [];
+                    posts = [];
+                    automations = [];
+                    currentUser = '';
+                    
+                    // Reset visual settings
+                    resetVisualSettings();
+                    
+                    // Update all displays
+                    updateAllDisplays();
+                    
+                    showToast('🏭 Reset de fábrica concluído!', 'success');
+                    
+                    setTimeout(() => {
+                        showToast('🔄 Sistema restaurado ao estado original!', 'info');
+                    }, 2000);
+                }
+            }
+        }
+
+        function resetAndReload() {
+            if (confirm('🔄 Esta ação irá zerar todos os dados e recarregar a página.\n\nTem certeza que deseja continuar?')) {
+                localStorage.clear();
+                showToast('🔄 Resetando sistema e recarregando...', 'info');
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+
+        function exportAllData() {
+            showToast('💾 Gerando backup completo do sistema...', 'info');
+            
+            setTimeout(() => {
+                const backupData = {
+                    timestamp: new Date().toISOString(),
+                    version: '1.0',
+                    data: {
+                        contacts: contacts,
+                        clients: clients,
+                        posts: posts,
+                        automations: automations,
+                        userProfile: JSON.parse(localStorage.getItem('userProfile') || '{}'),
+                        visualSettings: JSON.parse(localStorage.getItem('visualSettings') || '{}')
+                    }
+                };
+                
+                const dataStr = JSON.stringify(backupData, null, 2);
+                const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                const url = URL.createObjectURL(dataBlob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `hipnomarketing-backup-${new Date().toISOString().split('T')[0]}.json`;
+                link.click();
+                
+                URL.revokeObjectURL(url);
+                showToast('✅ Backup exportado com sucesso!', 'success');
+            }, 2000);
+        }
+
+        function importDemoData() {
+            if (confirm('📥 Deseja carregar os dados de demonstração?\n\nEsta ação irá:\n• Adicionar contatos de exemplo\n• Criar clientes fictícios\n• Agendar consultas de demo\n• Configurar automações básicas')) {
+                showToast('📥 Carregando dados de demonstração...', 'info');
+                
+                setTimeout(() => {
+                    // Load demo data
+                    contacts = [
+                        { name: 'Ana Costa', phone: '(11) 99999-1111', email: 'ana@email.com', status: 'Cliente Ativo', type: 'client' },
+                        { name: 'João Silva', phone: '(11) 99999-2222', email: 'joao@email.com', status: 'Lead Quente', type: 'lead' },
+                        { name: 'Maria Santos', phone: '(11) 99999-3333', email: 'maria@email.com', status: 'Cliente Ativo', type: 'client' }
+                    ];
+                    
+                    clients = [
+                        { name: 'Ana Costa', treatment: 'Ansiedade', sessions: 8 },
+                        { name: 'João Silva', treatment: 'Tabagismo', sessions: 5 }
+                    ];
+                    
+                    updateAllDisplays();
+                    
+                    showToast('✅ Dados de demonstração carregados!', 'success');
+                    
+                    setTimeout(() => {
+                        showToast('🎯 Explore as funcionalidades com os dados de exemplo!', 'info');
+                    }, 2000);
+                }, 1500);
+            }
+        }
+
+        // Update display functions
+        function updateContactDisplay() {
+            const contactsList = document.getElementById('contactsList');
+            if (contactsList) {
+                if (contacts.length === 0) {
+                    contactsList.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <div class="text-4xl mb-4">📱</div>
+                            <p>Nenhum contato sincronizado</p>
+                            <button onclick="syncContacts()" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                🔄 Sincronizar Contatos
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    contactsList.innerHTML = `
+                        <h3 class="text-lg font-semibold mb-4">📋 Lista de Contatos (${contacts.length})</h3>
+                        <div class="space-y-3">
+                            ${contacts.map(contact => `
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                    <div>
+                                        <p class="font-medium">${contact.name}</p>
+                                        <p class="text-sm text-gray-600">${contact.phone}</p>
+                                    </div>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">${contact.status}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function updateClientsDisplay() {
+            const clientsList = document.getElementById('clientsList');
+            if (clientsList) {
+                if (clients.length === 0) {
+                    clientsList.innerHTML = `
+                        <div class="text-center py-8 text-gray-500">
+                            <div class="text-4xl mb-4">👥</div>
+                            <p>Nenhum cliente cadastrado</p>
+                            <button onclick="addNewClient()" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                ➕ Novo Cliente
+                            </button>
+                        </div>
+                    `;
+                } else {
+                    clientsList.innerHTML = `
+                        <h3 class="text-lg font-semibold mb-4">📋 Lista de Clientes (${clients.length})</h3>
+                        <div class="space-y-3">
+                            ${clients.map(client => `
+                                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                    <div>
+                                        <p class="font-medium">${client.name}</p>
+                                        <p class="text-sm text-gray-600">${client.treatment} • ${client.sessions} sessões</p>
+                                    </div>
+                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Ativo</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function updateScheduleDisplay() {
+            const todaySchedule = document.getElementById('todaySchedule');
+            if (todaySchedule) {
+                todaySchedule.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <div class="text-4xl mb-4">📅</div>
+                        <p>Nenhuma consulta agendada para hoje</p>
+                    </div>
+                `;
+            }
+        }
+
+        function updatePostsDisplay() {
+            const postsCount = document.getElementById('postsCount');
+            if (postsCount) {
+                postsCount.textContent = posts.length;
+            }
+        }
+
+        function updateAutomationsDisplay() {
+            const automationsList = document.getElementById('automationsList');
+            if (automationsList && automations.length === 0) {
+                automationsList.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <div class="text-4xl mb-4">🤖</div>
+                        <p>Nenhuma automação configurada</p>
+                    </div>
+                `;
+            }
+        }
+
+        function updateAllDisplays() {
+            updateContactDisplay();
+            updateClientsDisplay();
+            updateScheduleDisplay();
+            updatePostsDisplay();
+            updateAutomationsDisplay();
+            
+            // Update dashboard counters
+            const leadsCount = document.getElementById('leadsCount');
+            const consultasCount = document.getElementById('consultasCount');
+            
+            if (leadsCount) leadsCount.textContent = contacts.filter(c => c.type === 'lead').length;
+            if (consultasCount) consultasCount.textContent = '0';
+        }
+
+        // Basic functionality
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            const validCredentials = [
+                { user: 'Laila', pass: 'Laila@@@060576' },
+                { user: 'admin', pass: 'admin' },
+                { user: 'demo', pass: 'demo123' }
+            ];
+            
+            const isValid = validCredentials.some(cred => 
+                cred.user === username && cred.pass === password
+            );
+            
+            if (isValid) {
+                currentUser = username;
+                document.getElementById('currentUser').textContent = username;
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('mainApp').classList.remove('hidden');
+                showToast('✅ Login realizado com sucesso!', 'success');
+            } else {
+                document.getElementById('loginError').classList.remove('hidden');
+                setTimeout(() => {
+                    document.getElementById('loginError').classList.add('hidden');
+                }, 5000);
+            }
+        }
+
+        function quickLogin(username, password) {
+            document.getElementById('username').value = username;
+            document.getElementById('password').value = password;
+            document.querySelector('form').dispatchEvent(new Event('submit'));
+        }
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.textContent = '👁️';
+            }
+        }
+
+        function showForgotPassword() {
+            showToast('📧 Funcionalidade em desenvolvimento. Use as credenciais de demonstração.', 'info');
+        }
+
+        function logout() {
+            document.getElementById('loginScreen').classList.remove('hidden');
+            document.getElementById('mainApp').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            showToast('👋 Logout realizado com sucesso!', 'info');
+        }
+
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.add('hidden'));
+            document.getElementById(tabName).classList.remove('hidden');
+            
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(btn => {
+                btn.classList.remove('border-purple-500', 'text-purple-600');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            event.target.classList.remove('border-transparent', 'text-gray-500');
+            event.target.classList.add('border-purple-500', 'text-purple-600');
+        }
+
+        // Placeholder functions
+        function syncContacts() {
+            showToast('📱 Sincronizando contatos...', 'info');
+            setTimeout(() => {
+                contacts = [
+                    { name: 'Ana Costa', phone: '(11) 99999-1111', email: 'ana@email.com', status: 'Cliente Ativo', type: 'client' },
+                    { name: 'João Silva', phone: '(11) 99999-2222', email: 'joao@email.com', status: 'Lead Quente', type: 'lead' }
+                ];
+                updateContactDisplay();
+                showToast('✅ Contatos sincronizados!', 'success');
+            }, 2000);
+        }
+
+        function generateContent() {
+            showToast('🤖 IA gerando conteúdo...', 'info');
+            setTimeout(() => {
+                document.getElementById('postContent').value = '🧠 A hipnose clínica é uma ferramenta poderosa para transformação pessoal!\n\n✨ Benefícios comprovados:\n• Redução de ansiedade\n• Melhora da autoestima\n• Controle de hábitos\n• Superação de medos\n\n#HipnoseClinica #Transformacao';
+                showToast('✅ Conteúdo gerado!', 'success');
+            }, 2000);
+        }
+
+        function schedulePost() {
+            const content = document.getElementById('postContent').value;
+            if (content.trim()) {
+                posts.push({ content, date: new Date() });
+                updatePostsDisplay();
+                showToast('📅 Post agendado com sucesso!', 'success');
+            } else {
+                showToast('⚠️ Adicione conteúdo antes de agendar!', 'warning');
+            }
+        }
+
+        function addNewClient() {
+            showToast('👤 Abrindo formulário de novo cliente...', 'info');
+        }
+
+        function testNotifications() {
+            showToast('🧪 Testando notificações...', 'info');
+            setTimeout(() => showToast('✅ Teste concluído!', 'success'), 2000);
+        }
+
+        function generateReport() {
+            showToast('📊 Gerando relatório...', 'info');
+            setTimeout(() => showToast('✅ Relatório gerado!', 'success'), 2000);
+        }
+
+        function contactSupport() {
+            showToast('💬 Redirecionando para suporte...', 'info');
+        }
+
+        // Toast notification system
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                info: 'bg-blue-500',
+                warning: 'bg-yellow-500'
+            };
+            
+            toast.className = `fixed top-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform transition-all duration-300 translate-x-full`;
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                toast.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (document.body.contains(toast)) {
+                        document.body.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            if (rememberedUser) {
+                document.getElementById('username').value = rememberedUser;
+                document.getElementById('rememberPassword').checked = true;
+            }
+            document.getElementById('username').focus();
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ec5a0ea364ca6d',t:'MTc1NzgxNTg2Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
